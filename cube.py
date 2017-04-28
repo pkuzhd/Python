@@ -1,8 +1,7 @@
 #-*- coding: utf-8 -*-
 import pygame
 from pygame.locals import *
-from tkinter import *
-from tkinter import ttk
+
 
 class cube():
     def __init__(self, cubelist):
@@ -15,7 +14,6 @@ class cube():
                         5:[0, 255, 0],#绿
                         6:[255, 255, 0],#黄
                     }
-        self.play = {'R':self.R, 'F':self.F, "'":None, '2':None}
         self.w = 32.5
         self.h = 45
         self.p = 20
@@ -84,62 +82,38 @@ class cube():
         F()
         F()
 
-    def run(self, strings):
-        t1 = None
-        t2 = None
-        for i in strings:
-            if i in self.play:
-                if t1 == None:
-                    t1 = i
-                elif t2 == None:
-                    t2 = i
-                    if t2 == "'":
-                        self.play[t1]()
-                        self.play[t1]()
-                        self.play[t1]()
-                        t1 = None
-                        t2 = None
-                    elif t2 == '2':
-                        self.play[t1]()
-                        self.play[t1]()
-                        t1 = None
-                        t2 = None
-                    else:
-                        self.play[t1]()
-                        t1 = t2
-                        t2 = None
-        if t1 != None:
-            self.play[t1]()
-
     def show(self):
         pygame.init()
         screen = pygame.display.set_mode((800, 600))
         screen.fill((255, 255, 255))
-        # for event in pygame.event.get():
-        #     if event.type == QUIT:
-        #         exit()
-        #     if event.type == KEYDOWN:
-        #         if event.key == 285 and event.mod == 256:
-        #             exit()
-        #         if event.key == K_r:
-        #             self.R()
-        #         if event.key == K_f:
-        #             self.F()
-        for i in range(1, 4):
-            for j in range(1, 4):
-                pygame.draw.polygon(screen, self.color[self.cube[0][i-1][j-1]], self.polygonlist_f(i, j), 0)
-                pygame.draw.polygon(screen, self.color[self.cube[1][i-1][j-1]], self.polygonlist_r(i, j), 0)
-                pygame.draw.polygon(screen, self.color[self.cube[2][i-1][j-1]], self.polygonlist_u(i, j), 0)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_f(i, j), 1)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_r(i, j), 1)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_u(i, j), 1)
-                pygame.draw.polygon(screen, self.color[self.cube[3][i-1][j-1]], self.polygonlist_f(i, j, 400+7*self.w, 300-7*self.p), 0)
-                pygame.draw.polygon(screen, self.color[self.cube[4][i-1][j-1]], self.polygonlist_r(i, j, 400-7*self.w, 300-7*self.p), 0)
-                pygame.draw.polygon(screen, self.color[self.cube[5][i-1][j-1]], self.polygonlist_u(i, j, 400, 300+6*self.h), 0)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_f(i, j, 400+7*self.w, 300-7*self.p), 1)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_r(i, j, 400-7*self.w, 300-7*self.p), 1)
-                pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_u(i, j, 400, 300+6*self.h), 1)
-        pygame.display.update()
+        while True:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    exit()
+                if event.type == KEYDOWN:
+                    if event.key == 285 and event.mod == 256:
+                        exit()
+                    if event.key == K_r:
+                        self.R()
+                    if event.key == K_f:
+                        self.F()
+            for i in range(1, 4):
+                for j in range(1, 4):
+                    pygame.draw.polygon(screen, self.color[self.cube[0][i-1][j-1]], self.polygonlist_f(i, j), 0)
+                    pygame.draw.polygon(screen, self.color[self.cube[1][i-1][j-1]], self.polygonlist_r(i, j), 0)
+                    pygame.draw.polygon(screen, self.color[self.cube[2][i-1][j-1]], self.polygonlist_u(i, j), 0)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_f(i, j), 1)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_r(i, j), 1)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_u(i, j), 1)
+                    pygame.draw.polygon(screen, self.color[self.cube[3][i-1][j-1]], self.polygonlist_f(i, j, 400+7*self.w, 300-7*self.p), 0)
+                    pygame.draw.polygon(screen, self.color[self.cube[4][i-1][j-1]], self.polygonlist_r(i, j, 400-7*self.w, 300-7*self.p), 0)
+                    pygame.draw.polygon(screen, self.color[self.cube[5][i-1][j-1]], self.polygonlist_u(i, j, 400, 300+6*self.h), 0)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_f(i, j, 400+7*self.w, 300-7*self.p), 1)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_r(i, j, 400-7*self.w, 300-7*self.p), 1)
+                    pygame.draw.aalines(screen, [0, 0, 0], True, self.polygonlist_u(i, j, 400, 300+6*self.h), 1)
+            pygame.display.update()
+
+
 
 a = cube([
         [
@@ -174,79 +148,4 @@ a = cube([
         ],
     ])
 
-
-def play(*args):
-    value = str(feet.get())
-    a.run(value)
-    a.show()
-
-root = Tk()
-root.title("cube")
 a.show()
-mainframe = ttk.Frame(root, padding="3 3 12 12")
-mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-mainframe.columnconfigure(0, weight=1)
-mainframe.rowconfigure(0, weight=1)
-
-feet = StringVar()
-meters = StringVar()
-
-feet_entry = ttk.Entry(mainframe, width=30, textvariable=feet)
-feet_entry.grid(column=2, row=1, sticky=(W, E))
-
-ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
-ttk.Button(mainframe, text="play", command=play).grid(column=3, row=1, sticky=W)
-ttk.Label(mainframe, text="命令").grid(column=1, row=1, sticky=W)
-
-for child in mainframe.winfo_children():
-    child.grid_configure(padx=5, pady=5)
-
-feet_entry.focus()
-root.bind('<Return>', play)
-
-root.mainloop()
-
-
-
-
-
-
-
-
-
-# from tkinter import *
-# from tkinter import ttk
-
-# def calculate(*args):
-#     try:
-#         value = float(feet.get())
-#         meters.set((0.3048 * value * 10000.0 + 0.5)/10000.0)
-#     except ValueError:
-#         pass
-# root = Tk()
-# root.title("Feet to Meters")
-
-# mainframe = ttk.Frame(root, padding="3 3 12 12")
-# mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-# mainframe.columnconfigure(0, weight=1)
-# mainframe.rowconfigure(0, weight=1)
-
-# feet = StringVar()
-# meters = StringVar()
-
-# feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
-# feet_entry.grid(column=2, row=1, sticky=(W, E))
-
-# ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
-# ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=3, sticky=W)
-
-# ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
-# ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
-# ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
-
-# for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
-
-# feet_entry.focus()
-# root.bind('<Return>', calculate)
-
-# root.mainloop()
